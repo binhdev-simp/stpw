@@ -1,60 +1,31 @@
-window.onload = function () {
-  
-    var seconds = 00; 
-    var tens = 00; 
-    var appendTens = document.getElementById("tens")
-    var appendSeconds = document.getElementById("seconds")
-    var buttonStart = document.getElementById('button-start');
-    var buttonStop = document.getElementById('button-stop');
-    var buttonReset = document.getElementById('button-reset');
-    var Interval ;
-  
-    buttonStart.onclick = function() {
-      
-      clearInterval(Interval);
-       Interval = setInterval(startTimer, 10);
-    }
-    
-      buttonStop.onclick = function() {
-         clearInterval(Interval);
-    }
-    
-  
-    buttonReset.onclick = function() {
-       clearInterval(Interval);
-      tens = "00";
-      seconds = "00";
-      appendTens.innerHTML = tens;
-      appendSeconds.innerHTML = seconds;
-    }
-    
-     
-    
-    function startTimer () {
-      tens++; 
-      
-      if(tens <= 9){
-        appendTens.innerHTML = "0" + tens;
-      }
-      
-      if (tens > 9){
-        appendTens.innerHTML = tens;
-        
-      } 
-      
-      if (tens > 99) {
-        console.log("seconds");
-        seconds++;
-        appendSeconds.innerHTML = "0" + seconds;
-        tens = 0;
-        appendTens.innerHTML = "0" + 0;
-      }
-      
-      if (seconds > 9){
-        appendSeconds.innerHTML = seconds;
-      }
-    
-    }
-    
-  
+const timeViewer= document.getElementById('timeViewer');
+var sec = 0;
+var min = 0;
+var hr = 0;
+
+var secView;
+var minView;
+var hrView;
+timeViewer.innerHTML="0"+ hr +":" + "0" + min + ":" + "0" + sec;
+function start() {
+  var i = setInterval(function() {
+      sec++;
+      if (sec>=60) {min++; sec=0}
+      if (min>=60) {hr++,min=0}  
+      if (sec<10) {secView="0"+sec}  
+      if (min<10) {minView="0"+min}  
+      if (hr<10) {hrView="0"+hr}  
+      if (hr>=10) {hrView=hr}
+      if (min>=10) {minView=min}
+
+      if (sec>=10) {secView=sec}
+
+
+    timeViewer.innerHTML=hrView +":" + minView + ":" + secView;
+
+  }, 1000);
+  const stopbtn= document.getElementById('button-stop');
+  stopbtn.onclick = function(){
+    clearInterval(i);
   }
+}
